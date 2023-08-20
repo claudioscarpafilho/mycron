@@ -1,0 +1,22 @@
+{
+  "name": "mycron",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/index",
+    "lint": "npx eslint \"./**/*.js\"",
+    "dev": "nodemon --legacy-watch ./src/index"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.395.0",
+    "cron-parser": "^4.9.0",
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.0"
+  }
+}

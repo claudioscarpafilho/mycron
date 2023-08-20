@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: on-failure:5
+    command: --lower_case_table_names=1
+    env_file:
+      - .env
+    environment:
+      - TZ=America/Sao_Paulo
+    ports:
+      - '3306:3306'
+    volumes: 
+      - mariadb:/var/lib/mysql
+      - ./mariadb-init:/docker-entrypoint-initdb.d/
+    networks:
+      - myCronNetwork
+
+  node: 
+    build: .
+    restart: on-failure:5
+    env_file:
+      - .env
+    environment:
+      TZ: America/Sao_Paulo
+      NODE_ENV: production
+    # volumes:
+    #   - .:/usr/src/app
+    depends_on:
+      - mariadb
+    networks:
+      - myCronNetwork
+
+networks: 
+  myCronNetwork:
+    driver: bridge
+
+volumes:
+  mariadb:
+    driver: local
